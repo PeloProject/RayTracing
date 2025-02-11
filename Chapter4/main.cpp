@@ -3,8 +3,24 @@
 #include "vec3.h"
 #include "ray.h"
 
+
+bool HitSphere(const vec3& center, float radius, const ray& r)
+{
+	vec3 oc = r.Origin() - center;
+	float a = Dot(r.Direction(), r.Direction());
+	float b = Dot(oc, r.Direction()) * 2.0f;
+	float c = Dot(oc, oc) - radius*radius;
+	float discriminant = b * b - 4 * a * c;
+	return discriminant > 0;
+
+}
+
 vec3 Color(const ray& r)
 {
+	if (HitSphere(vec3(0, 0, -1), 0.5f, r))
+	{
+		return vec3(1, 0, 0);
+	}
 	vec3 unitDirection = UnitVector(r.Direction());
 	float t = 0.5f * (unitDirection.y() + 1.0f);
 	return vec3(1.0f, 1.0f, 1.0f) * (1.0f - t) + vec3(0.5f, 0.7f, 1.0f) * t;

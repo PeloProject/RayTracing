@@ -1,26 +1,60 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35521.163 d17.12
+VisualStudioVersion = 17.12.35521.163
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RayTracing", "RayTracing\RayTracing.vcxproj", "{024A1345-7278-49CA-B188-DA92DA91982A}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter3", "Chapter3\Chapter3.vcxproj", "{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Chapter4", "Chapter4\Chapter4.vcxproj", "{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|Any CPU.Build.0 = Debug|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|x64.ActiveCfg = Debug|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|x64.Build.0 = Debug|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|x86.ActiveCfg = Debug|Win32
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Debug|x86.Build.0 = Debug|Win32
+		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|Any CPU.ActiveCfg = Release|x64
+		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|Any CPU.Build.0 = Release|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|x64.ActiveCfg = Release|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|x64.Build.0 = Release|x64
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|x86.ActiveCfg = Release|Win32
 		{024A1345-7278-49CA-B188-DA92DA91982A}.Release|x86.Build.0 = Release|Win32
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|Any CPU.Build.0 = Debug|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|x64.ActiveCfg = Debug|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|x64.Build.0 = Debug|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Debug|x86.Build.0 = Debug|Win32
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|Any CPU.ActiveCfg = Release|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|Any CPU.Build.0 = Release|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|x64.ActiveCfg = Release|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|x64.Build.0 = Release|x64
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|x86.ActiveCfg = Release|Win32
+		{4E29A95C-C3BA-4ACE-A38C-A70A5318D78D}.Release|x86.Build.0 = Release|Win32
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|Any CPU.Build.0 = Debug|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|x64.ActiveCfg = Debug|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|x64.Build.0 = Debug|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|x86.ActiveCfg = Debug|Win32
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Debug|x86.Build.0 = Debug|Win32
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|Any CPU.ActiveCfg = Release|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|Any CPU.Build.0 = Release|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|x64.ActiveCfg = Release|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|x64.Build.0 = Release|x64
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|x86.ActiveCfg = Release|Win32
+		{10FD08CB-E53F-45B0-A78B-CDFDC2E9F67F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
