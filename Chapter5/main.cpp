@@ -3,8 +3,10 @@
 #include "vec3.h"
 #include "ray.h"
 
-
-bool HitSphere(const vec3& center, float radius, const ray& r)
+// 参考URL	
+//https://qiita.com/tsuchinokoman/items/0106cc6bfd5584b66dd9
+//https://www.try-it.jp/chapters-1197/sections-1198/lessons-1207/
+float HitSphere(const vec3& center, float radius, const ray& r)
 {
 	// A = ray origin
 	// B = ray direction
@@ -12,22 +14,34 @@ bool HitSphere(const vec3& center, float radius, const ray& r)
 	vec3 oc = r.Origin() - center;					// A-C
 	float a = Dot(r.Direction(), r.Direction());	// dot(B,B)
 	float b = Dot(oc, r.Direction()) * 2.0f;		// 2 * dot(A-C,B)
-	float c = Dot(oc, oc) - radius*radius;			// dot(A-C,A-C) -R*R
-	float discriminant = b * b - 4 * a * c;
-	return discriminant > 0;
-
+	float c = Dot(oc, oc) - radius * radius;		// dot(A-C,A-C) -R*R
+	float discriminant = b * b - 4 * a * c;			// 2次方程式の解の公式のルート部分（ここがマイナスの場合は解なしとなります。
+	if (discriminant < 0)
+	{
+		return -1.0f;
+	}
+	else
+	{
+		float t0 = (-b + sqrtf(discriminant)) / (2.0f * a); // 二次方程式の解を求めて、視点から交点までの長さを算出
+		float t1 = (-b - sqrtf(discriminant)) / (2.0f * a); // 二次方程式の解を求めて、視点から交点までの長さを算出
+		return t1;
+	}
 }
 
 vec3 Color(const ray& r)
 {
-	if (HitSphere(vec3(0, 0, -1), 0.5f, r))
+	vec3 center = vec3(0, 0, -1);
+	float t = HitSphere(center, 0.5f, r);
+	if (t > 0.0f)
 	{
-		return vec3(1, 0, 0);
+		vec3 N = UnitVector(r.PointAtParameter(t) - center); // 交点-球の中心で法線ベクトルを求める
+		return vec3(N.x() + 1, N.y() + 1, N.z() + 1) * 0.5f;
 	}
 	vec3 unitDirection = UnitVector(r.Direction());
-	float t = 0.5f * (unitDirection.y() + 1.0f);
+	t = 0.5f * (unitDirection.y() + 1.0f);
 	return vec3(1.0f, 1.0f, 1.0f) * (1.0f - t) + vec3(0.5f, 0.7f, 1.0f) * t;
 }
+
 
 int main()
 {
