@@ -2,7 +2,11 @@
 #include <fstream>
 #include "vec3.h"
 #include "ray.h"
+#include "hitable_list.h"
+#include "sphere.h"
+#include "float.h"
 
+#if false
 // ŽQlURL	
 //https://qiita.com/tsuchinokoman/items/0106cc6bfd5584b66dd9
 //https://www.try-it.jp/chapters-1197/sections-1198/lessons-1207/
@@ -30,6 +34,7 @@ float HitSphere(const vec3& center, float radius, const ray& r)
 
 vec3 Color(const ray& r)
 {
+
 	vec3 center = vec3(0, 0, -1);
 	float t = HitSphere(center, 0.5f, r);
 	if (t > 0.0f)
@@ -79,3 +84,64 @@ int main()
 	}
 	outputfile.close();
 }
+
+#else
+
+vec3 Color(const ray& r, hitable *world)
+{
+	hit_record rec;
+	if (world->hit(r, 0.0f, FLT_MAX, rec))
+	{
+		return vec3(rec.normal.x() + 1, rec.normal.y() + 1, rec.normal.z() + 1) * 0.5f;
+	}
+	else
+	{
+		vec3 unit_direction = UnitVector(r.Direction());
+		float t = (unit_direction.y() + 1.0f) * 0.5f;
+		return vec3(1.0f, 1.0f, 1.0f)*(1.0f - t) + vec3(0.5f, 0.7f, 1.0f) * t;
+	}
+}
+
+int main()
+{
+	int nx = 200;
+	int ny = 100;
+
+	// outputfile
+	std::ofstream outputfile("image.ppm");
+
+	//std::cout << "P3\n" << nx << " " << ny << "\n255\n";
+	outputfile << "P3\n" << nx << " " << ny << "\n255\n";
+
+	vec3 lowerLeftCorner(-2.0f, -1.0f, -1.0f);
+	vec3 horizontal(4.0f, 0.0f, 0.0f);
+	vec3 vertical(0.0f, 2.0f, 0.0f);
+	vec3 origin(0.0f, 0.0f, 0.0f);
+
+	hitable* list[2];
+	list[0] = new sphere(vec3(0, 0, -1), 0.5);
+	list[1] = new sphere(vec3(0, -100.5, -1), 100);
+	hitable* world = new hitable_list(list, 2);
+
+	for (int j = ny - 1; j >= 0; j--)
+	{
+		for (int i = 0; i < nx; i++)
+		{
+
+			float u = float(i) / float(nx);
+			float v = float(j) / float(ny);
+
+			ray r(origin, lowerLeftCorner + horizontal * u + vertical * v);
+			vec3 color = Color(r, world);
+
+			int ir = int(255.99 * color[0]);
+			int ig = int(255.99 * color[1]);
+			int ib = int(255.99 * color[2]);
+			//std::cout << ir << " " << ig << " " << ib << "\n";
+			outputfile << ir << " " << ig << " " << ib << "\n";
+		}
+	}
+	outputfile.close();
+}
+
+#endif
