@@ -6,52 +6,25 @@
 #include "sphere.h"
 #include "float.h"
 #include "camera.h"
-#include <random>
+#include "lambertian.h"
+#include "metal.h"
 
-//***************************************************************************
-// メルセンヌ・ツイスター法による擬似乱数生成器を、	
-// // ハードウェア乱数をシードにして初期化
-std::random_device seed_gen;
-std::mt19937 engine(seed_gen());
-
-// 一様実数分布
-// [0.0f, 1.0f)の値の範囲で、等確率に実数を生成する
-std::uniform_real_distribution<float> g_rand(0.0f, 1.0f);
-
-float drand48()
-{
-	return g_rand(engine);
-}
-
-vec3 random_vector()
-{
-	return vec3(drand48(), drand48(), drand48());
-}
-
-//単純にランダム方向への反射で拡散面を近似する
-// （ランバート反射を用いないのは、今回は光源を背景（空）全体の無指向性光源として近似しているため）。
-// 衝突点に接する単位円半径内に含まれるランダムな点を選び、
-// 衝突点からそちらへ向かうベクトルを拡散反射ベクトルとする。
-vec3 random_in_unit_sphere()
-{
-	vec3 p;
-	do
-	{
-		// 球体全方向に乱反射させる
-		p = random_vector() * 2.0f - vec3(1.0f,1.0f,1.0f);
-		//p = random_vector();
-	} while (p.squared_length() >= 1.0f);
-
-	return p;
-}
-
-vec3 Color(const ray& r, hitable *world)
+vec3 Color(const ray& r, hitable *world, int depth)
 {
 	hit_record rec;
 	if (world->hit(r, 0.001f, FLT_MAX, rec))
 	{
-		vec3 target = rec.p + rec.normal + random_in_unit_sphere();
-		return Color( ray(rec.p, target-rec.p), world) * 0.5f;
+		ray scattered;
+		vec3 attenuation;
+		if (depth < 50 && rec.mat_prt->scatter(r, rec, attenuation, scattered))
+		{
+			return attenuation * Color(scattered, world, depth + 1);
+		}
+		else
+		{
+			return vec3(0, 0, 0);
+		}
+		
 	}
 	else
 	{
@@ -68,7 +41,7 @@ int main()
 {
 	int nx = 200*1;
 	int ny = 100*1;
-	int ns = 10;
+	int ns = 100;
 
 	// outputfile
 	std::ofstream outputfile("image.ppm");
@@ -78,10 +51,12 @@ int main()
 
 	camera cam;
 
-	hitable* list[2];
-	list[0] = new sphere(vec3(0, 0, -1), 0.5);
-	list[1] = new sphere(vec3(0, -100.5, -1), 100);
-	hitable* world = new hitable_list(list, 2);
+	hitable* list[4];
+	list[0] = new sphere(vec3(0, 0, -1), 0.5, new lambertian(vec3(0.8f, 0.3f,0.3f)));
+	list[1] = new sphere(vec3(0, -100.5, -1), 100, new lambertian(vec3(0.8f, 0.8f, 0.0f)));
+	list[2] = new sphere(vec3(1, 0, -1), 0.5, new metal(vec3(0.8f, 0.6f, 0.2f), 0.3f));
+	list[3] = new sphere(vec3(-1, 0, -1), 0.5, new metal(vec3(0.8f, 0.8f, 0.8f), 1.0f));
+	hitable* world = new hitable_list(list, 4);
 
 	for (int j = ny - 1; j >= 0; j--)
 	{
@@ -97,7 +72,7 @@ int main()
 				//std::cout << s << " " << u << " " << v << "\n";
 				ray r = cam.get_ray(u, v);
 				vec3 p = r.PointAtParameter(2.0f);
-				color = color + Color(r, world);
+				color = color + Color(r, world, 0);
 			}
 
 			color = color/(float)ns;

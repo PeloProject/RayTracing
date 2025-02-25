@@ -130,6 +130,9 @@
     <ClInclude Include="camera.h" />
     <ClInclude Include="hitable.h" />
     <ClInclude Include="hitable_list.h" />
+    <ClInclude Include="lambertian.h" />
+    <ClInclude Include="material.h" />
+    <ClInclude Include="metal.h" />
     <ClInclude Include="ray.h" />
     <ClInclude Include="sphere.h" />
     <ClInclude Include="vec3.h" />
@@ -138,7 +141,10 @@
     <ClCompile Include="camera.cpp" />
     <ClCompile Include="hitable.cpp" />
     <ClCompile Include="hitable_list.cpp" />
+    <ClCompile Include="lambertian.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="material.cpp" />
+    <ClCompile Include="metal.cpp" />
     <ClCompile Include="ray.cpp" />
     <ClCompile Include="sphere.cpp" />
     <ClCompile Include="vec3.cpp" />

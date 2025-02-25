@@ -2,6 +2,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <iostream>
+#include <random>
 
 class vec3
 {
@@ -45,3 +46,9 @@ public:
 
 vec3 UnitVector(vec3 v);
 float Dot(const vec3 &v1, const vec3& v2);
+
+
+
+float drand48();
+vec3 random_vector();
+vec3 random_in_unit_sphere();

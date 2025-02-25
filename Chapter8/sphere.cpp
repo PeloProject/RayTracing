@@ -2,6 +2,7 @@
 
 bool sphere::hit(const ray& r, float t_min, float t_max, hit_record& rec) const
 {
+	rec.mat_prt = mat_ptr;
 	vec3 oc = r.Origin() - center;
 	float a = Dot(r.Direction(), r.Direction());	// dot(B,B)
 	float b = Dot(oc, r.Direction());				// dot(A-C,B)
