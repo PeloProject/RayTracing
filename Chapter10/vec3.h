@@ -46,7 +46,7 @@ public:
 
 vec3 UnitVector(vec3 v);
 float Dot(const vec3 &v1, const vec3& v2);
-
+vec3 Cross(const vec3& v1, const vec3& v2);
 
 
 float drand48();
@@ -57,3 +57,4 @@ vec3 refract(const vec3& uv, const vec3& n, double etai_over_etat);
 double schlick(double cosine, double ref_idx);
 double random_double();
 double random_double(double min, double max);
+double degrees_to_radians(double degrees);

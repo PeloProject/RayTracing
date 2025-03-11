@@ -40,8 +40,15 @@ vec3 Color(const ray& r, hitable *world, int depth)
 
 int main()
 {
+
+
 	int nx = 200*1;
-	int ny = 100*1;
+
+	auto aspect_ratio = 16.0 / 9.0;
+	camera cam(vec3(-2, 2, 1), vec3(0, 0, -1), vec3(0, 1, 0), 20, aspect_ratio);
+
+	int ny = int(nx / aspect_ratio);
+	ny = (ny < 1) ? 1 : ny;
 	int ns = 100;
 
 	// outputfile
@@ -50,7 +57,7 @@ int main()
 	//std::cout << "P3\n" << nx << " " << ny << "\n255\n";
 	outputfile << "P3\n" << nx << " " << ny << "\n255\n";
 
-	camera cam;
+
 
 	const int LIST_SIZE = 5;
 	hitable* list[LIST_SIZE];

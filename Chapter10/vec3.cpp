@@ -67,6 +67,13 @@ float Dot(const vec3& v1, const vec3& v2)
     return v1.e[0] * v2.e[0] + v1.e[1] * v2.e[1] + v1.e[2] * v2.e[2];
 }
 
+vec3 Cross(const vec3& v1, const vec3& v2)
+{
+    return vec3(v1.e[1] * v2.e[2] - v1.e[2] * v2.e[1],
+        v1.e[2] * v2.e[0] - v1.e[0] * v2.e[2],
+        v1.e[0] * v2.e[1] - v1.e[1] * v2.e[0]);
+}
+
 //***************************************************************************
 // メルセンヌ・ツイスター法による擬似乱数生成器を、	
 // // ハードウェア乱数をシードにして初期化
@@ -152,4 +159,11 @@ double random_double(double min, double max)
 {
     // Returns a random real in [min,max).
     return min + (max - min) * random_double();
+}
+
+const double infinity = std::numeric_limits<double>::infinity();
+const double pi = 3.1415926535897932385;
+double degrees_to_radians(double degrees)
+{
+    return degrees * pi / 180.0;
 }
